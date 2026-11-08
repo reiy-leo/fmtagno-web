@@ -9,6 +9,7 @@ export default defineConfig({
       description: "一份 JSON，出 Word、PDF 和网页。",
       logo: { src: "./src/assets/logo.png", alt: "fmtagno" },
       favicon: "/favicon.png",
+      customCss: ["./src/styles/theme.css"],
       head: [{ tag: "link", attrs: { rel: "apple-touch-icon", href: "/apple-touch-icon.png" } }],
       defaultLocale: "root",
       locales: {
