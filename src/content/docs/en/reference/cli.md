@@ -28,8 +28,8 @@ fmtagno render report.json -o report.pdf --style-sets themes/ --style-set formal
 | Option | Meaning |
 |---|---|
 | `<input>` | JSON file. `-` reads from stdin |
-| `-o, --output <file>` | Output file, required. The extension picks the format: `.docx`, `.pdf`, `.html` or `.htm`. `-` writes to stdout and then needs `--format` |
-| `-f, --format <fmt>` | Force a format: `html`, `docx`, `pdf`. Otherwise taken from the output extension |
+| `-o, --output <file>` | Output file, required. The extension picks the format: `.docx`, `.pdf`, `.html` or `.htm` (`.md` in the next release). `-` writes to stdout and then needs `--format` |
+| `-f, --format <fmt>` | Force a format: `html`, `docx`, `pdf` (`md` in the next release). Otherwise taken from the output extension |
 | `--paged` | html only: embed Paged.js so the page displays as pages |
 | `--catalog <path>` | Custom component definition file or directory; repeatable |
 | `--style-sets <path>` | Style set file or directory; repeatable |

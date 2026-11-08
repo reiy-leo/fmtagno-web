@@ -105,10 +105,32 @@ Legend: ✓ supported; ✗ ignored with a warning; — ignored silently.
 - If none is found, Typst's bundled fonts are used and CJK characters may be missing.
 - Your own `fontFamily` goes in front of the default list.
 
+## Markdown (next release)
+
+`-o report.md` or `-f md` writes Markdown in GitHub's flavor (GFM). Markdown has no styling, so only the structure is kept. Useful for READMEs, feeding to AI, or diffs.
+
+| Content | Written as |
+|---|---|
+| Heading | `#` to `######` |
+| Text | A paragraph; line breaks in the text become a trailing backslash |
+| Bold, italic, strike, super/subscript, links, inline code | `**`, `*`, `~~`, `<sup>` `<sub>`, `[text](url)`, backticks; nothing is marked when it matches the paragraph itself |
+| List | `1.` and `-`, nested lists indented to the parent's text |
+| Table | A GFM table when it has a header row and no merged cells; otherwise an inline HTML table |
+| Code | A fenced block with the language; `lineNumbers` is ignored |
+| Quote | `>` |
+| Callout | A GitHub alert `> [!NOTE]`; 💡 becomes TIP, ⚠️ WARNING, ❗ IMPORTANT, ⛔ 🚫 CAUTION; other icons stay in front of the text |
+| Divider | `---` |
+| TableOfContents | A list of links to the headings; each heading it lists gets an `<a id>` anchor |
+| Image | `![alt](src)` with the path as written, not embedded; `caption` becomes an italic line below |
+| Section, Slide | Content only; a Slide's `title` becomes a level-2 heading |
+
+Dropped with a warning: PageBreak, headers and footers, page-number fields. Dropped silently: fonts, sizes, colors, spacing, borders, alignment and other styling.
+
 ## Next release
 
 These are on the development branch but not released yet (latest release: `v0.1.0-alpha.2`):
 
+- New format: Markdown (`.md`), see “Markdown (next release)” above.
 - pdf, html: text ending in a line break gets one more empty line at the end, like Word.
 - pdf: exact line heights are no longer stretched by the font; changing font size in a cell keeps the line height.
 - pdf: a cell's own line height (e.g. the header's `lineHeight`) is no longer lost.

@@ -26,8 +26,8 @@ fmtagno render report.json -o report.pdf --style-sets themes/ --style-set formal
 | 参数 | 说明 |
 |---|---|
 | `<输入>` | JSON 文件。写 `-` 从标准输入读 |
-| `-o, --output <文件>` | 输出文件，必填。按扩展名选格式：`.docx`、`.pdf`、`.html` 或 `.htm`。写 `-` 输出到标准输出，这时要配 `--format` |
-| `-f, --format <格式>` | 指定格式：`html`、`docx`、`pdf`。不写就看输出文件的扩展名 |
+| `-o, --output <文件>` | 输出文件，必填。按扩展名选格式：`.docx`、`.pdf`、`.html` 或 `.htm`，下一版加 `.md`。写 `-` 输出到标准输出，这时要配 `--format` |
+| `-f, --format <格式>` | 指定格式：`html`、`docx`、`pdf`，下一版加 `md`。不写就看输出文件的扩展名 |
 | `--paged` | 只对 html 有用：内嵌 Paged.js，打开就按页显示 |
 | `--catalog <路径>` | 自定义组件的定义文件或目录，可以写多次 |
 | `--style-sets <路径>` | 样式集文件或目录，可以写多次 |

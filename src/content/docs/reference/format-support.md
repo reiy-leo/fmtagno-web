@@ -105,10 +105,32 @@ sidebar:
 - 都找不到时退回 Typst 自带字体，中文可能显示不全。
 - 自己写的 `fontFamily` 排在默认列表前面。
 
+## Markdown（下一版）
+
+`-o report.md` 或 `-f md` 出 Markdown，按 GitHub 的写法（GFM）。Markdown 没有样式，只留结构，适合贴进 README、喂给 AI 或做版本对比。
+
+| 内容 | 写成 |
+|---|---|
+| Heading | `#` 到 `######` |
+| Text | 段落；文字里的换行写成行尾反斜杠 |
+| 粗体、斜体、删除线、上下标、链接、行内代码 | `**`、`*`、`~~`、`<sup>` `<sub>`、`[文字](网址)`、反引号；和段落本身相同的不标 |
+| List | `1.`、`-`，子列表缩进对齐 |
+| Table | 有表头、没有合并格时写成 GFM 表格；有合并格或没表头时写成内嵌 HTML 表格 |
+| Code | 带语言名的围栏代码块；`lineNumbers` 忽略 |
+| Quote | `>` |
+| Callout | GitHub 提示框 `> [!NOTE]`；💡 写成 TIP，⚠️ 写成 WARNING，❗ 写成 IMPORTANT，⛔ 🚫 写成 CAUTION，认不出的图标留在文字前面 |
+| Divider | `---` |
+| TableOfContents | 链到各标题的列表；被收进目录的标题前面加一个 `<a id>` 锚点 |
+| Image | `![alt](src)`，路径原样写，不嵌图；`caption` 写成下一行斜体 |
+| Section、Slide | 只留内容；Slide 的 `title` 写成二级标题 |
+
+丢掉并警告：PageBreak、页眉页脚、页码域。不警告直接丢掉：字体、字号、颜色、间距、边框、对齐这类样式。
+
 ## 下一版的改动
 
 下面这些已经在开发分支上，还没发布（最新发布是 `v0.1.0-alpha.2`）：
 
+- 新格式 Markdown（`.md`），见上面「Markdown（下一版）」。
 - pdf、html：文字以换行结尾时，末尾补一行空行，和 Word 一样。
 - pdf：固定行高不再让字体撑高；格子里改字号，行高不变。
 - pdf：表格格子自己的行高（比如表头的 `lineHeight`）不再丢。
