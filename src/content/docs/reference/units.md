@@ -23,7 +23,7 @@ sidebar:
 | `line` | `"0.5line"` | 行数 | `spaceBefore`、`spaceAfter` |
 | `%` | `"50%"` | 百分比 | 宽高 |
 
-- `"2em"` 用在 `textIndent` 上就是首行缩进两个字。docx 里写成 Word 按字符计的缩进。
+- `"2em"` 用在 `textIndent` 上就是首行缩进两个字。`marginLeft`、`marginRight`、`textIndent`、`hangingIndent` 写成 `em` 时，docx 里同时写 Word 按字符计的缩进（leftChars、rightChars、firstLineChars、hangingChars），在 Word 里改字号缩进跟着变；pdf、html 按字号算。
 - `"0.5line"` 在 docx 里写成 Word 的「行」单位；pdf、html 按字号 × 1.2 × 行数算。
 - `px` 是 CSS 的参考像素，不是屏幕的物理像素。CSS 定死了 1in = 96px = 72pt，所以换算和屏幕无关。Retina 屏只是用 2 个物理像素画 1px，打印出来的尺寸不变。
 - 页面设置（纸张、页边距）、表格列宽、行高只认绝对长度（pt mm cm in px）。
