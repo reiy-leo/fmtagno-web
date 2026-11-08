@@ -7,8 +7,9 @@ export default defineConfig({
     starlight({
       title: "fmtagno",
       description: "一份 JSON，出 Word、PDF 和网页。",
-      logo: { src: "./src/assets/logo.svg", replacesTitle: true },
-      favicon: "/favicon.svg",
+      logo: { src: "./src/assets/logo.png", alt: "fmtagno" },
+      favicon: "/favicon.png",
+      head: [{ tag: "link", attrs: { rel: "apple-touch-icon", href: "/apple-touch-icon.png" } }],
       defaultLocale: "root",
       locales: {
         root: { label: "简体中文", lang: "zh-CN" },
