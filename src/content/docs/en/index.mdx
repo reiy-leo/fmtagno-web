@@ -1,0 +1,80 @@
+---
+title: fmtagno
+description: One JSON document, out come Word, PDF and web pages. fmtagno is a single-binary CLI that lays out JSON as docx, pdf and html using components and styles.
+template: splash
+hero:
+  tagline: One JSON document. Word, PDF and HTML out.
+  actions:
+    - text: Quick start
+      link: /en/getting-started/quick-start/
+      icon: right-arrow
+      variant: primary
+    - text: How the JSON works
+      link: /en/guide/document/
+      variant: secondary
+    - text: GitHub
+      link: https://github.com/reiy-leo/fmtagno
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid, Aside } from '@astrojs/starlight/components';
+
+<Aside type="caution" title="Alpha software">
+The latest pre-release is `v0.1.0-alpha.2`. Field names and behavior may still change. Anything marked "next release" is already in the code but not released yet.
+</Aside>
+
+## At a glance
+
+The JSON says *what* goes on the page: headings, paragraphs, lists, tables, images, plus a little styling. fmtagno does the layout.
+
+```json title="hello.json"
+{
+  "version": "0.1",
+  "meta": { "title": "Quarterly report", "lang": "en", "page": { "size": "A4", "margin": "20mm" } },
+  "styles": { "muted": { "color": "#666666", "fontSize": 10 } },
+  "root": "doc",
+  "elements": {
+    "doc":   { "type": "Document", "children": ["title", "intro", "items"] },
+    "title": { "type": "Heading", "props": { "level": 1, "text": "Quarterly report" } },
+    "intro": { "type": "Text", "props": { "text": "One JSON file, three formats." }, "style": "muted" },
+    "items": { "type": "List", "props": { "items": ["docx", "pdf", "html"] } }
+  }
+}
+```
+
+```sh
+fmtagno render hello.json -o hello.docx
+fmtagno render hello.json -o hello.pdf
+fmtagno render hello.json -o hello.html --paged
+```
+
+## What it does
+
+<CardGrid>
+  <Card title="One source, three formats" icon="document">
+    The same JSON renders to docx, pdf and html. If a format can't express a style, you get a warning, not an error.
+  </Card>
+  <Card title="CSS-like styles" icon="pencil">
+    Field names follow CSS: `fontSize`, `lineHeight`, `border`. Values follow what Word can express.
+  </Card>
+  <Card title="Style sets" icon="seti:config">
+    Put a house style in a style set and share it across documents. Switch the set, switch the look.
+  </Card>
+  <Card title="Tables and sections" icon="list-format">
+    Merged cells, column widths, row heights, repeated headers; sections with their own paper, headers, footers and page numbers.
+  </Card>
+  <Card title="Custom components" icon="puzzle">
+    Combine built-ins into your own components and use them in one line.
+  </Card>
+  <Card title="Easy for AI to write" icon="rocket">
+    Elements are flat and reference each other by id. An AI can emit them one by one, and `fmtagno check` tells it exactly what's wrong.
+  </Card>
+</CardGrid>
+
+## Where to start
+
+- Not installed yet: [Install](/en/getting-started/install/).
+- Want to see it work first: [Quick start](/en/getting-started/quick-start/).
+- Editing an existing JSON file: read [Document structure](/en/guide/document/), then look up [Components](/en/guide/components/) and [Styles](/en/guide/styles/).
+- Looking up a field: see the Reference section.

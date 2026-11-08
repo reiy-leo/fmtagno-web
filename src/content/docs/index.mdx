@@ -1,0 +1,80 @@
+---
+title: fmtagno
+description: 一份 JSON，出 Word、PDF 和网页。fmtagno 是单文件的命令行工具，按组件和样式把 JSON 排成 docx、pdf、html。
+template: splash
+hero:
+  tagline: 一份 JSON，出 Word、PDF 和网页
+  actions:
+    - text: 五分钟上手
+      link: /getting-started/quick-start/
+      icon: right-arrow
+      variant: primary
+    - text: 看 JSON 怎么写
+      link: /guide/document/
+      variant: secondary
+    - text: GitHub
+      link: https://github.com/reiy-leo/fmtagno
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid, Aside } from '@astrojs/starlight/components';
+
+<Aside type="caution" title="还在 alpha 阶段">
+最新预发布版是 `v0.1.0-alpha.2`。字段名和行为还可能改。标了「下一版」的内容已经写进代码，还没发布。
+</Aside>
+
+## 一眼看懂
+
+JSON 里只写「放什么」：标题、正文、列表、表格、图片。再带一点样式。fmtagno 负责排版。
+
+```json title="hello.json"
+{
+  "version": "0.1",
+  "meta": { "title": "季度报告", "lang": "zh-CN", "page": { "size": "A4", "margin": "20mm" } },
+  "styles": { "muted": { "color": "#666666", "fontSize": 10 } },
+  "root": "doc",
+  "elements": {
+    "doc":   { "type": "Document", "children": ["title", "intro", "items"] },
+    "title": { "type": "Heading", "props": { "level": 1, "text": "季度报告" } },
+    "intro": { "type": "Text", "props": { "text": "一份 JSON，出三种格式。" }, "style": "muted" },
+    "items": { "type": "List", "props": { "items": ["docx", "pdf", "html"] } }
+  }
+}
+```
+
+```sh
+fmtagno render hello.json -o hello.docx
+fmtagno render hello.json -o hello.pdf
+fmtagno render hello.json -o hello.html --paged
+```
+
+## 能做什么
+
+<CardGrid>
+  <Card title="三种格式一份数据" icon="document">
+    同一份 JSON 出 docx、pdf、html。哪个格式表达不了某个样式，就给一条警告，不报错。
+  </Card>
+  <Card title="样式像 CSS" icon="pencil">
+    字段名跟 CSS 走：`fontSize`、`lineHeight`、`border`。取值以 Word 能表达的为准。
+  </Card>
+  <Card title="样式集" icon="seti:config">
+    一套公司模板写成样式集，很多文档共用。换个样式集，就换一套外观。
+  </Card>
+  <Card title="表格和分节" icon="list-format">
+    合并单元格、列宽、行高、表头重复；分节换纸张、页眉页脚、页码。
+  </Card>
+  <Card title="自定义组件" icon="puzzle">
+    把常用排版拼成自己的组件，JSON 里一行引用。
+  </Card>
+  <Card title="AI 好写" icon="rocket">
+    元素平铺、用 id 互相引用。AI 可以一条条写出来，`fmtagno check` 马上告诉它错在哪。
+  </Card>
+</CardGrid>
+
+## 从哪开始
+
+- 没装过：看[安装](/getting-started/install/)。
+- 想先跑通一份：看[快速上手](/getting-started/quick-start/)。
+- 要改现成的 JSON：先看[文档结构](/guide/document/)，再查[组件](/guide/components/)和[样式](/guide/styles/)。
+- 查某个字段：去「参考」一栏。
