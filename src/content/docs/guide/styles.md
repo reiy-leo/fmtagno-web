@@ -81,7 +81,7 @@ sidebar:
 3. 样式集的组件样式：先 `Heading`，再 `Heading.1`。
 4. 顶层 `styles` 里的组件样式：同样先 `Heading` 再 `Heading.1`。
 5. 自定义组件模板里写的 `style`。
-6. 指名自定义组件的组件样式：`Callout`、`Callout:head`。
+6. 指名自定义组件的组件样式：`Notice`、`Notice:head`。
 7. 元素自己的 `style`。数组里后面的覆盖前面的。
 8. runs 上的文字样式（只管这一小段文字）。
 

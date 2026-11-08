@@ -1,11 +1,11 @@
 ---
 title: Built-in components
-description: fmtagno's ten built-in components — Document, Heading, Text, Code, List, Table, Image, PageBreak, Section, Slide — plus InlineCode for runs.
+description: fmtagno's fourteen built-in components — Document, Heading, Text, Code, List, Table, Image, PageBreak, Divider, Quote, Callout, TableOfContents, Section, Slide — plus InlineCode for runs.
 sidebar:
   order: 2
 ---
 
-There are ten built-in components, plus `InlineCode`, which only lives inside runs. To see the full props definitions:
+There are fourteen built-in components, plus `InlineCode`, which only lives inside runs. To see the full props definitions:
 
 ```sh
 fmtagno catalog          # list components
@@ -22,6 +22,10 @@ fmtagno catalog --json   # JSON Schema of every component's props
 | [Table](#table) | Table | no | see [Tables](/en/guide/tables/) |
 | [Image](#image) | Image | no | `caption` |
 | [PageBreak](#pagebreak) | Page break | no | — |
+| [Divider](#divider) | Horizontal line (next release) | no | — |
+| [Quote](#quote) | Quotation (next release) | no | — |
+| [Callout](#callout) | Callout box (next release) | no | — |
+| [TableOfContents](#tableofcontents) | Table of contents (next release) | no | `title` `entry` |
 | [Section](#section) | Section | yes | — |
 | [Slide](#slide) | One slide | yes | `title` `body` |
 
@@ -181,6 +185,90 @@ Starts a new page. No props.
 ```
 
 Plain html shows no page breaks; they appear when printing or with `--paged`.
+
+## Divider
+
+:::note[Next release]
+Divider, Quote, Callout and TableOfContents are new in the next release; v0.1.0-alpha.2 does not have them.
+:::
+
+
+A horizontal line. No props; its look comes entirely from style, and the line is the paragraph's bottom border.
+
+```json
+"line": { "type": "Divider" },
+"dashed": { "type": "Divider", "style": { "borderBottom": "1pt dashed #999999" } }
+```
+
+Default style: bottom border `0.5pt solid #D0D7DE`, exact line height 1pt, 6pt before, 12pt after.
+
+## Quote
+
+A quotation: a paragraph with a bar on the left.
+
+| prop | type | required | description |
+|---|---|---|---|
+| `text` | string or runs | yes | The quoted text, written like [Text](#text) |
+
+```json
+"quote": {
+  "type": "Quote",
+  "props": { "text": [{ "text": "Word and PDF finally match, " }, { "text": "saving us a whole day.", "bold": true }] }
+}
+```
+
+Default style: left border `3pt solid #D0D7DE`, 10pt left padding, color `#57606A`, 8pt after.
+
+In docx the padding and line width are added to the left indent, so the bar and text sit in the same place in all three formats.
+
+## Callout
+
+A callout: a paragraph with a background and a thin border, optionally led by an icon.
+
+| prop | type | required | description |
+|---|---|---|---|
+| `text` | string or runs | yes | The callout text |
+| `icon` | string | no | Character placed first, usually an emoji such as `"💡"`. A space follows it automatically |
+
+```json
+"warn": {
+  "type": "Callout",
+  "props": { "icon": "⚠️", "text": "Month 3 figures are not audited yet and may change." },
+  "style": { "background": "#FFF8E1", "border": "0.5pt solid #F0C36D" }
+}
+```
+
+Default style: background `#F6F8FA`, border `0.5pt solid #E1E4E8`, 8pt padding, 8pt after.
+
+- The icon uses the same text style as the body. How an emoji looks depends on the font, so it may differ between formats.
+- For rounded corners add `radius`; docx has no rounded corners and warns once.
+
+## TableOfContents
+
+A table of contents listing the document's headings in order.
+
+| prop | type | required | description |
+|---|---|---|---|
+| `title` | string | no | Heading shown above the list; omitted if not set |
+| `levels` | 1 to 6 | no | Deepest heading level to include, default 3 |
+
+```json
+"toc": { "type": "TableOfContents", "props": { "title": "Contents", "levels": 2 } }
+```
+
+- Parts: `title` styles the heading (default 14pt bold, 6pt after); `entry` styles each item (default 2pt after).
+- Each deeper level is indented by `listIndent` (set on `entry`, default `1.5em`).
+- Only Heading elements are listed, not Slide titles.
+
+Page numbers come from different places in each format:
+
+| | Page numbers |
+|---|---|
+| pdf | Computed after layout; entries are clickable |
+| docx | A Word TOC field. The file holds the entry text without page numbers; update the field in Word (right-click the TOC → Update Field) to get them |
+| html | Plain links when opened directly; with `--paged`, Paged.js fills in page numbers |
+
+When Word updates the field it re-lays the entries with the "TOC 1" to "TOC 6" styles. fmtagno defines those styles from the `entry` style of the first TOC in the document, so it looks the same before and after the update.
 
 ## Section
 

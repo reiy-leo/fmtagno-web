@@ -15,11 +15,11 @@ One component per file, written in JSON:
 
 ```json title="catalog/callout.json"
 {
-  "name": "Callout",
+  "name": "Notice",
   "description": "A callout with a title; children go below the title",
   "container": true,
   "props": {
-    "title": { "type": "inline", "required": true, "description": "Callout title" },
+    "title": { "type": "inline", "required": true, "description": "Notice title" },
     "tone": { "type": "string", "default": "#1a73e8", "description": "Title color" }
   },
   "template": {
@@ -39,7 +39,7 @@ One component per file, written in JSON:
 Using it:
 
 ```json
-"tip": { "type": "Callout", "props": { "title": "Tip" }, "children": ["tip-body"] },
+"tip": { "type": "Notice", "props": { "title": "Tip" }, "children": ["tip-body"] },
 "tip-body": { "type": "Text", "props": { "text": "Component definitions live in a catalog/ directory next to the document." } }
 ```
 
@@ -125,13 +125,13 @@ fmtagno catalog --json --catalog catalog/
 ## How styles combine
 
 - `style` and `parts` in the template are the component's default look.
-- They rank **after** generic component styles. A top-level `"Text": {...}` won't change the Callout's title.
+- They rank **after** generic component styles. A top-level `"Text": {...}` won't change the Notice's title.
 - To change something inside, use a named key:
 
   | Key | Applies to |
   |---|---|
-  | `Callout` | The root element after expansion |
-  | `Callout:head` | The template element with id `head` |
+  | `Notice` | The root element after expansion |
+  | `Notice:head` | The template element with id `head` |
   | `PriceTable:t.header` | The `header` part of template element `t` |
 
 - `style` and `parts` written on the instance win over everything.
@@ -163,7 +163,7 @@ The full order is in [Styles](/en/guide/styles/).
       }
     },
     {
-      "name": "Callout",
+      "name": "Notice",
       "description": "A callout with a title",
       "container": true,
       "props": {
@@ -180,13 +180,13 @@ The full order is in [Styles](/en/guide/styles/).
     }
   ],
   "styles": {
-    "Callout:head": { "fontSize": 12 }
+    "Notice:head": { "fontSize": 12 }
   },
   "root": "doc",
   "elements": {
     "doc": { "type": "Document", "children": ["ch1", "tip"] },
     "ch1": { "type": "Chapter", "props": { "n": 1, "title": "Why custom components", "lead": ["Combine common layouts ", { "text": "once", "bold": true }, ", use them in one line."] } },
-    "tip": { "type": "Callout", "props": { "title": "Tip", "tone": "#CF222E" }, "children": ["tip-body"] },
+    "tip": { "type": "Notice", "props": { "title": "Tip", "tone": "#CF222E" }, "children": ["tip-body"] },
     "tip-body": { "type": "Text", "props": { "text": "Definitions can live in catalog/, or right in the document like this." } }
   }
 }

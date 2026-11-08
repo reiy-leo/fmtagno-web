@@ -29,6 +29,8 @@ Legend: ✓ supported; ✗ ignored with a warning; — ignored silently.
 | Table | ✓ part styles written per cell | ✓ | ✓ |
 | Image | png, jpeg, gif, webp only | no URLs | ✓ |
 | PageBreak | ✓ | ✓ | when printing or with `--paged` |
+| Divider, Quote, Callout (next release) | ✓ padding and line width go into the indent; `radius` ✗ | ✓ | ✓ |
+| TableOfContents (next release) | Word TOC field; page numbers after updating fields | ✓ page numbers computed, clickable | links; page numbers with `--paged` |
 | Section | ✓ extra empty paragraph at each section end holds its settings | ✓ | with `--paged`; printing uses the first section's paper |
 | Slide | level-2 heading plus content, then a page break; `body` part ✗ | one per page | one per page (16:9 box) |
 

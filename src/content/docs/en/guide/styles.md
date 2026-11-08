@@ -81,7 +81,7 @@ An element's final style is built in this order; later steps win:
 3. The style set's component styles: `Heading`, then `Heading.1`.
 4. Component styles from the top-level `styles`: again `Heading`, then `Heading.1`.
 5. The `style` written in a custom component's template.
-6. Component styles that name the custom component: `Callout`, `Callout:head`.
+6. Component styles that name the custom component: `Notice`, `Notice:head`.
 7. The element's own `style`. Later array entries win.
 8. Text styles on runs (for that bit of text only).
 

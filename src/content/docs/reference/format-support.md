@@ -29,6 +29,8 @@ sidebar:
 | Table | ✓ 部位样式逐格写 | ✓ | ✓ |
 | Image | 只收 png、jpeg、gif、webp | 不收网址 | ✓ |
 | PageBreak | ✓ | ✓ | 打印或 `--paged` 时 |
+| Divider、Quote、Callout（下一版） | ✓ 内边距和线宽算进缩进；`radius` ✗ | ✓ | ✓ |
+| TableOfContents（下一版） | Word TOC 域，更新域后才有页码 | ✓ 页码算好，可点 | 链接；`--paged` 时有页码 |
 | Section | ✓ 每节末尾多一个空段落放节设置 | ✓ | `--paged` 时；打印只用第一节纸张 |
 | Slide | 二级标题加正文，后面分页；部位 `body` ✗ | 一张一页 | 一张一页（16:9 框） |
 

@@ -15,7 +15,7 @@ sidebar:
 
 ```json title="catalog/callout.json"
 {
-  "name": "Callout",
+  "name": "Notice",
   "description": "带标题的提示框，子元素放在标题下面",
   "container": true,
   "props": {
@@ -39,7 +39,7 @@ sidebar:
 用的时候：
 
 ```json
-"tip": { "type": "Callout", "props": { "title": "提示" }, "children": ["tip-body"] },
+"tip": { "type": "Notice", "props": { "title": "提示" }, "children": ["tip-body"] },
 "tip-body": { "type": "Text", "props": { "text": "组件定义放在文档旁边的 catalog/ 目录里。" } }
 ```
 
@@ -125,13 +125,13 @@ fmtagno catalog --json --catalog catalog/
 ## 样式怎么叠
 
 - 模板里写的 `style`、`parts` 是组件的默认外观。
-- 它们排在通用组件样式**后面**。顶层 `styles` 里写 `"Text": {...}`，改不动 Callout 里的标题。
+- 它们排在通用组件样式**后面**。顶层 `styles` 里写 `"Text": {...}`，改不动 Notice 里的标题。
 - 要改组件里面，用指名的键：
 
   | 键 | 管什么 |
   |---|---|
-  | `Callout` | 展开后的根元素 |
-  | `Callout:head` | 模板里 id 为 `head` 的元素 |
+  | `Notice` | 展开后的根元素 |
+  | `Notice:head` | 模板里 id 为 `head` 的元素 |
   | `PriceTable:t.header` | 模板元素 `t` 的部位 `header` |
 
 - 实例上写的 `style`、`parts` 优先级最高。
@@ -163,7 +163,7 @@ fmtagno catalog --json --catalog catalog/
       }
     },
     {
-      "name": "Callout",
+      "name": "Notice",
       "description": "带标题的提示框",
       "container": true,
       "props": {
@@ -180,13 +180,13 @@ fmtagno catalog --json --catalog catalog/
     }
   ],
   "styles": {
-    "Callout:head": { "fontSize": 12 }
+    "Notice:head": { "fontSize": 12 }
   },
   "root": "doc",
   "elements": {
     "doc": { "type": "Document", "children": ["ch1", "tip"] },
     "ch1": { "type": "Chapter", "props": { "n": 1, "title": "为什么要自定义组件", "lead": ["把常用的排版", { "text": "组合起来", "bold": true }, "，JSON 里一行引用。"] } },
-    "tip": { "type": "Callout", "props": { "title": "提示", "tone": "#CF222E" }, "children": ["tip-body"] },
+    "tip": { "type": "Notice", "props": { "title": "提示", "tone": "#CF222E" }, "children": ["tip-body"] },
     "tip-body": { "type": "Text", "props": { "text": "定义可以放在 catalog/ 目录，也可以像这样直接写进文档。" } }
   }
 }

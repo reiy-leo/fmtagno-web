@@ -1,11 +1,11 @@
 ---
 title: 内置组件
-description: fmtagno 的十个内置组件：Document、Heading、Text、Code、List、Table、Image、PageBreak、Section、Slide，以及写在 runs 里的 InlineCode。
+description: fmtagno 的十四个内置组件：Document、Heading、Text、Code、List、Table、Image、PageBreak、Divider、Quote、Callout、TableOfContents、Section、Slide，以及写在 runs 里的 InlineCode。
 sidebar:
   order: 2
 ---
 
-内置组件一共十个，外加只能写在 runs 里的 `InlineCode`。命令行里看完整的 props 定义：
+内置组件一共十四个，外加只能写在 runs 里的 `InlineCode`。命令行里看完整的 props 定义：
 
 ```sh
 fmtagno catalog          # 列出组件
@@ -22,6 +22,10 @@ fmtagno catalog --json   # 每个组件 props 的 JSON Schema
 | [Table](#table) | 表格 | 否 | 见[表格](/guide/tables/) |
 | [Image](#image) | 图片 | 否 | `caption` |
 | [PageBreak](#pagebreak) | 分页 | 否 | — |
+| [Divider](#divider) | 分割线（下一版） | 否 | — |
+| [Quote](#quote) | 引用（下一版） | 否 | — |
+| [Callout](#callout) | 提示框（下一版） | 否 | — |
+| [TableOfContents](#tableofcontents) | 目录（下一版） | 否 | `title` `entry` |
 | [Section](#section) | 分节 | 是 | — |
 | [Slide](#slide) | 一页幻灯片 | 是 | `title` `body` |
 
@@ -181,6 +185,90 @@ docx 的段落只在有边框时才用 `padding`，所以代码块在 docx 里�
 ```
 
 html 直接打开时看不出分页，打印或加 `--paged` 时才分页。
+
+## Divider
+
+:::note[下一版]
+Divider、Quote、Callout、TableOfContents 是下一版新增的组件，v0.1.0-alpha.2 里还没有。
+:::
+
+
+分割线，一条横线。没有 props，外观全由样式决定，线就是段落的下边框。
+
+```json
+"line": { "type": "Divider" },
+"dashed": { "type": "Divider", "style": { "borderBottom": "1pt dashed #999999" } }
+```
+
+默认样式：下边框 `0.5pt solid #D0D7DE`、行高固定 1pt、段前 6pt、段后 12pt。
+
+## Quote
+
+引用，一段带左竖线的文字。
+
+| prop | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `text` | 字符串或 runs | 是 | 引用的文字，写法和 [Text](#text) 一样 |
+
+```json
+"quote": {
+  "type": "Quote",
+  "props": { "text": [{ "text": "导出 Word 和 PDF 终于一模一样了，" }, { "text": "省了一整天。", "bold": true }] }
+}
+```
+
+默认样式：左边框 `3pt solid #D0D7DE`、左内边距 10pt、字色 `#57606A`、段后 8pt。
+
+docx 会把内边距和线宽加进左缩进，三种格式里竖线和文字的位置一样。
+
+## Callout
+
+提示框：带底色和细边框的一段文字，前面可以放一个图标。
+
+| prop | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `text` | 字符串或 runs | 是 | 提示的文字 |
+| `icon` | 字符串 | 否 | 放在最前面的字符，常用 emoji，如 `"💡"`。后面自动跟一个空格 |
+
+```json
+"warn": {
+  "type": "Callout",
+  "props": { "icon": "⚠️", "text": "第三个月的数据还没审计，可能会调整。" },
+  "style": { "background": "#FFF8E1", "border": "0.5pt solid #F0C36D" }
+}
+```
+
+默认样式：底色 `#F6F8FA`、边框 `0.5pt solid #E1E4E8`、内边距 8pt、段后 8pt。
+
+- 图标和正文用同一套文字样式。emoji 的样子取决于字体，三种格式可能不一样。
+- 要圆角就写 `radius`；docx 不支持圆角，会警告一次。
+
+## TableOfContents
+
+目录，按顺序列出全文的标题。
+
+| prop | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| `title` | 字符串 | 否 | 目录上方的标题，不写就不显示 |
+| `levels` | 1 到 6 | 否 | 收到第几级标题，默认 3 |
+
+```json
+"toc": { "type": "TableOfContents", "props": { "title": "目录", "levels": 2 } }
+```
+
+- 部位：`title` 管目录标题（默认 14pt 加粗、段后 6pt），`entry` 管每一项（默认段后 2pt）。
+- 每低一级，项往里缩 `listIndent`（写在 `entry` 上，默认 `1.5em`）。
+- 只收 Heading，不收 Slide 的标题。
+
+三种格式出页码的方式不一样：
+
+| | 页码 |
+|---|---|
+| pdf | 排完版算好，项可以点 |
+| docx | Word 的 TOC 域。文件里先写好各项文字，没有页码；在 Word 里更新域（右键目录 → 更新域）后才有页码 |
+| html | 直接打开只有链接；加 `--paged` 时由 Paged.js 填页码 |
+
+docx 更新域时，Word 用「目录 1」到「目录 6」样式重排各项。fmtagno 按文档里第一个目录的 `entry` 样式定义这几个样式，所以更新前后看起来一样。
 
 ## Section
 
