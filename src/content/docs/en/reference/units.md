@@ -25,6 +25,7 @@ Style values come in a few fixed shapes. Get one wrong and `check` reports it an
 
 - `"2em"` on `textIndent` is a two-character first-line indent. docx writes it as Word's character-based indent.
 - `"0.5line"` becomes Word's line unit in docx; pdf and html compute font size × 1.2 × lines.
+- `px` is the CSS reference pixel, not a physical screen pixel. CSS fixes 1in = 96px = 72pt, so the conversion does not depend on the screen. A Retina display just draws 1px with 2 device pixels; the printed size stays the same.
 - Page settings (paper, margins), table column widths and row heights take absolute lengths only (pt mm cm in px).
 - Negative values are fine, e.g. `"-2pt"`.
 
